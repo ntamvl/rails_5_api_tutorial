@@ -641,7 +641,11 @@ ap u
 rails s
 ```
 *then run in `Terminal`*
+```ruby
+# with [token] that taken on rails console
+curl -H "Authorization: Token token=[token]" http://localhost:3000/v1/users
+```
+*example*
 ```
 curl -H "Authorization: Token token=3Hu9orST5sKDHUPJBwjbogtt" http://localhost:3000/v1/users
-curl -H "Authorization: Token token=3Hu9orST5sKDHUPJBwjbogtt" http://10.1.0.132:3000/v1/users
 ```
