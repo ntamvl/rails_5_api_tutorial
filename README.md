@@ -630,13 +630,17 @@ Hopefully then guide was helpful for you, and if you want any points clarified o
 
 Cheers, and happy coding!
 
-## How to run the test suite
+## How to run
 *Create a new user to get token, type command `rails c`*
 ```ruby
 u = User.create({name: "Tam Nguyen", email: "ntamvl@gmail.com"})
 ap u
 ```
-
+*next typing*
+```
+rails s
+```
+*then run in `Terminal`*
 ```
 curl -H "Authorization: Token token=3Hu9orST5sKDHUPJBwjbogtt" http://localhost:3000/v1/users
 curl -H "Authorization: Token token=3Hu9orST5sKDHUPJBwjbogtt" http://10.1.0.132:3000/v1/users
