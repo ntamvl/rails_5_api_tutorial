@@ -420,7 +420,7 @@ gem 'swagger-docs'
 ```
 bundle
 ```
-**2 - Say you decide to structure your REST path in the following format: /api/v1/{method}. Edit app/controllers/api/v1/posts_controller.rb and add the following:**
+**2 - Say you decide to structure your REST path in the following format: `/api/v1/{method}`. Edit `app/controllers/api/v1/posts_controller.rb` and add the following:**
 ```ruby
 # app/controllers/api/v1/posts_controller.rb
 
