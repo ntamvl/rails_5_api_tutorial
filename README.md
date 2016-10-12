@@ -630,7 +630,7 @@ Hopefully then guide was helpful for you, and if you want any points clarified o
 
 Cheers, and happy coding!
 
-* How to run the test suite
+## How to run the test suite
 *Create a new user to get token, type command `rails c`*
 ```ruby
 u = User.create({name: "Tam Nguyen", email: "ntamvl@gmail.com"})
