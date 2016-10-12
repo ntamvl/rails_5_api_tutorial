@@ -505,7 +505,7 @@ Read this doc for more info on Swagger UI.
 
 By default, the Swagger UI home page retrieves the api-docs.json documentation file from http://petstore.swagger.wordnik.com/. We can override this behavior by appending a URI parameter url to the URL ie. `/swagger/dist/index.html?url=/apidocs/api-docs.json`.
 
-### `config/routes.rb`
+*edit `config/routes.rb`*
 ```ruby
 get '/docs' => redirect('/swagger/dist/index.html?url=/apidocs/api-docs.json')
 ```
