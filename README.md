@@ -412,8 +412,14 @@ Let's assume the following:
 **1 - Add the following to the Gemfile and run bundle afterwards.**
 
 ### Swagger
+*Add this line to Gemfile*
+```
 gem 'swagger-docs'
-$ bundle
+```
+*then run command*
+```
+bundle
+```
 **2 - Say you decide to structure your REST path in the following format: /api/v1/{method}. Edit app/controllers/api/v1/posts_controller.rb and add the following:**
 ```ruby
 # app/controllers/api/v1/posts_controller.rb
