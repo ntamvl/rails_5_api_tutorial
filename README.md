@@ -634,6 +634,28 @@ Hopefully then guide was helpful for you, and if you want any points clarified o
 Cheers, and happy coding!
 
 ## How to run
+*Clone source from github: `git@github.com:ntamvl/rails_5_api_tutorial.git`*
+```
+cd
+git clone git@github.com:ntamvl/rails_5_api_tutorial.git && cd rails_5_api_tutorial
+bundle install
+```
+*Edit `config/database.yml`*
+```
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  template: template0
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: localhost
+  port: 5432
+  username: postgres
+  password: password
+
+development:
+  <<: *default
+  database: filter_api_development
+```
 *Create a new user to get token, type command `rails c`*
 ```ruby
 u = User.create({name: "Tam Nguyen", email: "ntamvl@gmail.com"})
