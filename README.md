@@ -480,7 +480,7 @@ Note that we override the transformpath method in `Swagger::Docs::Config` to pla
 
 **4 - Also it a good practice not to check the generated Swagger documentation files into git. So we include the generated json files in .gitigore. Because all the generated files are saved under public/apidocs, it becomes easy to include those files in .gitignore.**
 
-### Ignore Swagger JSON files.
+*Ignore Swagger JSON files.*
 ```
 /public/apidocs/
 ```
