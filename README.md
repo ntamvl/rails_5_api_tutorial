@@ -625,14 +625,6 @@ module Api::V1
 end
 ```
 
-## Conclusion
-
-Now you have the keys to the castle, and all the basics for building an API the Rails way.
-
-Hopefully then guide was helpful for you, and if you want any points clarified or just want to say thanks then feel free to use the comments below.
-
-Cheers, and happy coding!
-
 ## How to run
 *Clone source from github: `git@github.com:ntamvl/rails_5_api_tutorial.git`*
 ```
@@ -674,3 +666,11 @@ curl -H "Authorization: Token token=[token]" http://localhost:3000/v1/users
 ```
 curl -H "Authorization: Token token=3Hu9orST5sKDHUPJBwjbogtt" http://localhost:3000/v1/users
 ```
+
+## Conclusion
+
+Now you have the keys to the castle, and all the basics for building an API the Rails way.
+
+Hopefully then guide was helpful for you, and if you want any points clarified or just want to say thanks then feel free to use the comments below.
+
+Cheers, and happy coding!
