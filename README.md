@@ -625,6 +625,104 @@ module Api::V1
 end
 ```
 
+## Rate Limiting per token
+#### Create file `config/initializers/throttle.rb`
+```ruby
+# config/initializers/throttle.rb
+
+require "redis"
+
+redis_conf  = YAML.load(File.join(Rails.root, "config", "redis.yml"))
+REDIS = Redis.new(:host => redis_conf["host"], :port => redis_conf["port"])
+
+# We will allow a client a maximum of 60 requests in 15 minutes. The following constants need to be defined in throttle.rb
+THROTTLE_TIME_WINDOW = 15 * 60
+THROTTLE_MAX_REQUESTS = 60
+```
+
+The filter needs to be changed to respond with error messages when the rate limit is exceeded.
+```ruby
+class ApplicationController < ActionController::API
+  include ActionController::Serialization
+  include ActionController::HttpAuthentication::Token::ControllerMethods
+
+  before_action :authenticate
+  before_filter :throttle_token
+
+  protected
+
+  def authenticate
+    authenticate_token || render_unauthorized
+  end
+
+  def authenticate_token
+    authenticate_with_http_token do |token, options|
+      @current_user = User.find_by(api_key: token)
+      @token = token
+    end
+  end
+
+  def render_unauthorized(realm = "Application")
+    self.headers["WWW-Authenticate"] = %(Token realm="#{realm.gsub(/"/, "")}")
+    render json: {message: 'Bad credentials'}, status: :unauthorized
+  end
+
+  def throttle_ip
+    client_ip = request.env["REMOTE_ADDR"]
+    key = "count:#{client_ip}"
+    count = REDIS.get(key)
+
+    unless count
+      REDIS.set(key, 0)
+      REDIS.expire(key, THROTTLE_TIME_WINDOW)
+      return true
+    end
+
+    if count.to_i >= THROTTLE_MAX_REQUESTS
+      render :json => {:message => "You have fired too many requests. Please wait for some time."}, :status => 429
+      return
+    end
+    REDIS.incr(key)
+    true
+  end
+
+  def throttle_token
+    if @token.present?
+      key = "count:#{@token}"
+      count = REDIS.get(key)
+
+      unless count
+        REDIS.set(key, 0)
+        REDIS.expire(key, THROTTLE_TIME_WINDOW)
+        return true
+      end
+
+      if count.to_i >= THROTTLE_MAX_REQUESTS
+        render :json => {:message => "You have fired too many requests. Please wait for some time."}, :status => 429
+        return
+      end
+      REDIS.incr(key)
+      true
+    else
+      false
+    end
+  end
+end
+```
+
+Let’s go ahead and test this `test_throttle.sh`.
+```
+for i in {1..300}
+do
+printf "\n------------------\n"
+echo "Welcome $i times"
+printf "\n"
+# curl -i -H "Authorization: Token token=3Hu9orST5sKDHUPJBwjbogtt" http://localhost:3000/v1/users >> /dev/null
+# curl -i -H "Authorization: Token token=3Hu9orST5sKDHUPJBwjbogtt" http://10.1.0.201:3000/v1/users
+curl -i -H "Authorization: Token token=3Hu9orST5sKDHUPJBwjbogtt" http://localhost:3000/v1/users
+done
+```
+
 ## How to run
 *Clone source from github: `git@github.com:ntamvl/rails_5_api_tutorial.git`*
 ```
@@ -674,3 +772,10 @@ Now you have the keys to the castle, and all the basics for building an API the 
 Hopefully then guide was helpful for you, and if you want any points clarified or just want to say thanks then feel free to use the comments below.
 
 Cheers, and happy coding!
+
+---------------------------------------------
+Redis documentation for INCR command. [return]
+redis - A Ruby client that tries to match Redis’ API one-to-one, while still providing an idiomatic interface. It features thread-safety, client-side sharding, pipelining, and an obsession for performance. [return]
+Rails’ before filter. [return]
+IETF: Additional HTTP Status Codes - 429 Too Many Requests. [return]
+*If you have questions or comments about this blog post, you can get in touch with me on Twitter @nguyentamvn*
