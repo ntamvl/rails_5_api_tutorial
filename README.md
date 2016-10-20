@@ -775,7 +775,11 @@ Cheers, and happy coding!
 
 ---------------------------------------------
 Redis documentation for INCR command. [return]
+
 redis - A Ruby client that tries to match Redis’ API one-to-one, while still providing an idiomatic interface. It features thread-safety, client-side sharding, pipelining, and an obsession for performance. [return]
+
 Rails’ before filter. [return]
+
 IETF: Additional HTTP Status Codes - 429 Too Many Requests. [return]
+
 *If you have questions or comments about this blog post, you can get in touch with me on Twitter @nguyentamvn*
