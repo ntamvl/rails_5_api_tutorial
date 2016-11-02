@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   end
 
   scope module: 'api' do
+    scope module: 'v1' do
+      get '/' => 'home#index_public'
+    end
     namespace :v1 do
       resources :users
     end

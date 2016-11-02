@@ -2,7 +2,7 @@ class ApplicationController < ActionController::API
   include ActionController::Serialization
   include ActionController::HttpAuthentication::Token::ControllerMethods
 
-  before_action :authenticate
+  before_action :authenticate, except: [:index_public]
   before_filter :throttle_token
 
   protected

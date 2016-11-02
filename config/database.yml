@@ -85,6 +85,4 @@ test:
 #
 production:
   <<: *default
-  database: filter_api_production
-  username: filter_api
-  password: <%= ENV['FILTER_API_DATABASE_PASSWORD'] %>
+  database: filter_api_development
