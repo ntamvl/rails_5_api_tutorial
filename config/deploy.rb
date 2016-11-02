@@ -26,7 +26,7 @@ set :port, '22'
 # They will be linked in the 'deploy:link_shared_paths' step.
 # set :shared_dirs, fetch(:shared_dirs, []).push('config')
 # set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/secrets.yml')
-set :shared_dirs, fetch(:shared_dirs, []).push('config', 'tmp/sockets', 'tmp/pids')
+set :shared_dirs, fetch(:shared_dirs, []).push('tmp/sockets', 'tmp/pids')
 set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'Gemfile.lock')
 
 # This task is the environment that is loaded all remote run commands, such as
@@ -73,10 +73,11 @@ task :deploy do
     # Put things that will set up an empty directory into a fully set-up
     # instance of your project.
     invoke :'git:clone'
-    invoke :'deploy:link_shared_paths'
+    # invoke :'deploy:link_shared_paths'
+    invoke :'my_link_paths'
     invoke :'bundle:install'
-    invoke :'rails:db_migrate'
-    invoke :'rails:assets_precompile'
+    # invoke :'rails:db_migrate'
+    # invoke :'rails:assets_precompile'
     invoke :'deploy:cleanup'
 
     on :launch do
@@ -89,6 +90,20 @@ task :deploy do
 
   # you can use `run :local` to run tasks on local machine before of after the deploy scripts
   # run :local { say 'done' }
+end
+
+task :my_link_paths do
+  comment %{Symlinking my shared paths}
+
+  fetch(:shared_dirs, []).each do |linked_dir|
+    command %{mkdir -p #{File.dirname("./#{linked_dir}")}}
+    command %{rm -rf "./#{linked_dir}"}
+    command %{ln -s "#{fetch(:shared_path)}/#{linked_dir}" "./#{linked_dir}"}
+  end
+
+  fetch(:shared_files, []).each do |linked_path|
+    command %{ln -sf "#{fetch(:shared_path)}/#{linked_path}" "./#{linked_path}"}
+  end
 end
 
 # For help in making your deploy script, see the Mina documentation:
