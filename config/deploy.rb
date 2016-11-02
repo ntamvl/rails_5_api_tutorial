@@ -13,7 +13,7 @@ require 'mina/rbenv'  # for rbenv support. (https://rbenv.org)
 set :domain, 'xdev-server'
 set :deploy_to, '/home/tamnguyen/apps/rails_5_api'
 set :repository, 'git@github.com:ntamvl/rails_5_api_tutorial.git'
-set :branch, 'master'
+set :branch, 'deploy'
 
 # Optional settings:
 #   set :user, 'foobar'          # Username in the server to SSH to.
