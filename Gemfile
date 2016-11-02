@@ -31,7 +31,6 @@ gem 'swagger-docs', '0.2.9'
 gem "redis", '3.3.0'
 
 gem 'mina', '1.0.2'
-gem 'mina-puma', :require => false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
