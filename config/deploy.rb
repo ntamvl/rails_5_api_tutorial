@@ -14,6 +14,7 @@ set :domain, 'xdev-server'
 set :deploy_to, '/home/tamnguyen/apps/rails_5_api'
 set :repository, 'git@github.com:ntamvl/rails_5_api_tutorial.git'
 set :branch, 'deploy'
+set :rails_env, 'production'
 
 # Optional settings:
 #   set :user, 'foobar'          # Username in the server to SSH to.
@@ -78,6 +79,8 @@ task :deploy do
     invoke :'bundle:install'
     # invoke :'rails:db_migrate'
     # invoke :'rails:assets_precompile'
+    invoke :'my_db_migrate'
+    invoke :'my_assets_clean'
     invoke :'deploy:cleanup'
 
     on :launch do
@@ -103,6 +106,20 @@ task :my_link_paths do
 
   fetch(:shared_files, []).each do |linked_path|
     command %{ln -sf "#{fetch(:shared_path)}/#{linked_path}" "./#{linked_path}"}
+  end
+end
+
+task :my_db_migrate do
+  in_path(fetch(:current_path)) do
+    comment %{Running command rails db:migrate for Rails 5+...}
+    command %{rails db:migrate RAILS_ENV=production}
+  end
+end
+
+task :my_assets_clean do
+  in_path(fetch(:current_path)) do
+    comment %{Running command rails tmp:clear for Rails 5+...}
+    command %{rails tmp:clear RAILS_ENV=production}
   end
 end
 
