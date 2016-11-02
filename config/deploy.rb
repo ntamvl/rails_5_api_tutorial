@@ -28,7 +28,7 @@ set :port, '22'
 # set :shared_dirs, fetch(:shared_dirs, []).push('config')
 # set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/secrets.yml')
 set :shared_dirs, fetch(:shared_dirs, []).push('tmp/sockets', 'tmp/pids')
-set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'Gemfile.lock')
+set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'Gemfile.lock', 'config/puma.rb')
 
 # This task is the environment that is loaded all remote run commands, such as
 # `mina deploy` or `mina rake`.
@@ -123,6 +123,12 @@ task :my_assets_clean do
   end
 end
 
+task :my_start_puma do
+  in_path(fetch(:current_path)) do
+    comment %{Starting puma...}
+    command %{}
+  end
+end
 # For help in making your deploy script, see the Mina documentation:
 #
 #  - https://github.com/mina-deploy/mina/docs
