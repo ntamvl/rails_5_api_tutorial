@@ -82,6 +82,7 @@ task :deploy do
     invoke :'my_db_migrate'
     invoke :'my_assets_clean'
     invoke :'deploy:cleanup'
+    invoke :'my_start_puma'
 
     on :launch do
       in_path(fetch(:current_path)) do
@@ -125,8 +126,17 @@ end
 
 task :my_start_puma do
   in_path(fetch(:current_path)) do
-    comment %{Starting puma...}
-    command %{}
+    comment %{Puma is starting...}
+    command %{bundler exec puma -C config/puma.rb -e production -d}
+    comment %{Puma started!}
+  end
+end
+
+task :my_stop_puma do
+  in_path(fetch(:current_path)) do
+    comment %{Puma is stopping...}
+    command %{kill -9 `cat tmp/pids/puma.pid`}
+    comment %{Puma stopped!}
   end
 end
 # For help in making your deploy script, see the Mina documentation:
