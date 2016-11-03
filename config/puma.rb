@@ -4,12 +4,25 @@
 # the maximum value specified for Puma. Default is set to 5 threads for minimum
 # and maximum, this matches the default thread size of Active Record.
 #
+root = File.expand_path("../..", __FILE__)
+
 threads_count = ENV.fetch("RAILS_MAX_THREADS") { 5 }.to_i
 threads threads_count, threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests, default is 3000.
 #
 port        ENV.fetch("PORT") { 3000 }
+
+# Set up socket location
+bind "unix://#{root}/tmp/sockets/puma.sock"
+
+# Logging
+# stdout_redirect "#{root}/log/puma.stdout.log", "#{root}/log/puma.stderr.log", true
+
+# Set master PID and state locations
+pidfile "#{root}/tmp/pids/puma.pid"
+state_path "#{root}/tmp/pids/puma.state"
+activate_control_app
 
 # Specifies the `environment` that Puma will run in.
 #
@@ -21,7 +34,7 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # Workers do not work on JRuby or Windows (both of which do not support
 # processes).
 #
-workers ENV.fetch("WEB_CONCURRENCY") { 2 }
+workers ENV.fetch("WEB_CONCURRENCY") { 5 }
 
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code
@@ -38,10 +51,10 @@ preload_app!
 # option you will want to use this block to reconnect to any threads
 # or connections that may have been created at application boot, Ruby
 # cannot share connections between processes.
-#
-# on_worker_boot do
-#   ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
-# end
+
+on_worker_boot do
+  ActiveRecord::Base.establish_connection if defined?(ActiveRecord)
+end
 
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
