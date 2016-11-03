@@ -31,6 +31,8 @@ gem 'swagger-docs', '0.2.9'
 gem "redis", '3.3.0'
 
 gem 'mina', '1.0.2'
+# gem 'mina-puma', :require => false
+gem 'mina_slack_notify', git: "git@github.com:ntamvl/mina_slack_notify.git", branch: "upgrade_mina_1"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
