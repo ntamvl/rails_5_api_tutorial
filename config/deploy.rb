@@ -82,7 +82,7 @@ task :deploy do
     invoke :'my_db_migrate'
     invoke :'my_assets_clean'
     invoke :'deploy:cleanup'
-    invoke :'my_start_puma'
+    invoke :'my_restart_puma'
 
     on :launch do
       in_path(fetch(:current_path)) do
@@ -139,6 +139,14 @@ task :my_stop_puma do
     comment %{Puma stopped!}
   end
 end
+
+task :my_restart_puma do
+  in_path(fetch(:current_path)) do
+    invoke :'my_stop_puma'
+    invoke :'my_start_puma'
+  end
+end
+
 # For help in making your deploy script, see the Mina documentation:
 #
 #  - https://github.com/mina-deploy/mina/docs
