@@ -30,8 +30,11 @@ gem 'swagger-docs', '0.2.9'
 
 gem "redis", '3.3.0'
 
+gem 'jwt'
+
 gem 'mina', '1.0.2'
 # gem 'mina-puma', :require => false
+gem 'httparty'
 gem 'mina_slack_notify', git: "git@github.com:ntamvl/mina_slack_notify.git", branch: "upgrade_mina_1"
 
 group :development, :test do
