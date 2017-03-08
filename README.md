@@ -23,23 +23,20 @@ This how-to guide aims to help you get started the right way using Rails 5 to bu
 
 First, make sure you are running Ruby 2.2.2+ or newer as it’s required by Rails 5.
 
-According to the official [Rails guide](//edgeguides.rubyonrails.org/api_app.html) all we need to do to create an API only Rails app is to pass the `--api` option at the command line when creating a new Rails app, like so:
-```
-rails new api_app_name --api
-```
-However, as Rails 5 hasn’t been officially released yet things aren’t quite that simple, and we need to generate our Rails API app using the latest version on Github. Simply clone the master branch from the Rails repo:
-```
-git clone git@github.com:rails/rails.git
-```
 Now we generate new Rails API application by passing the `--api` directive to the `rails new` command:
 ```
-bundle exec railties/exe/rails new <parent-folder-path>/api_app_name --api --edge
+rails __5.0.2__ api_app_name --api
 ```
-The next thing is to run `bundle` and `rake` inside our app directory to install the default gems and setup the database:
+The next thing is to run `bundle` inside our app directory to install the default gems and setup the database:
 ```
-cd  <parent-folder-path>/api_app_name
+cd api_app_name
 bundle install
-bin/rake db:setup
+```
+
+and edit `config/database.yml`:
+then run:
+```
+rails db:create
 ```
 
 Nice! Now we have a shiny new API only Rails app without any of the incumbent front end bloat, and all of the inherent Railsy goodness.
