@@ -33,8 +33,7 @@ cd api_app_name
 bundle install
 ```
 
-and edit `config/database.yml`:
-then run:
+and edit `config/database.yml` then run:
 ```
 rails db:create
 ```
