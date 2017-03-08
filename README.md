@@ -19,7 +19,7 @@ This how-to guide aims to help you get started the right way using Rails 5 to bu
 ## Screenshot
 ![Building the Perfect Rails 5 API Only using Swagger UI for documentation](https://c7.staticflickr.com/9/8548/29979999550_7980b15a45_b.jpg)
 
-## Setting up Rails 5
+## Setting up project with Rails 5
 
 First, make sure you are running Ruby 2.2.2+ or newer as it’s required by Rails 5.
 
