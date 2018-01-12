@@ -13,6 +13,9 @@ Rails.application.routes.draw do
       get '/' => 'home#index_public'
     end
     namespace :v1 do
+      namespace :my_users do
+        resources :users
+      end
       resources :users
     end
   end
