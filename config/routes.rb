@@ -15,7 +15,9 @@ Rails.application.routes.draw do
     namespace :v1 do
       namespace :my_users do
         resources :users
+        resources :pets
       end
+      resources :products
       resources :users
     end
   end

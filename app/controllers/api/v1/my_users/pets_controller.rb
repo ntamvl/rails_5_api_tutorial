@@ -1,7 +1,6 @@
 module Api::V1
-  class MyUsers::UsersController < ApiController
-
-    swagger_controller :my_users_users, "My User Management"
+  class MyUsers::PetsController < ApiController
+    swagger_controller :pets, "My User Management"
 
     swagger_api :index do
       summary "Fetches all User items"
