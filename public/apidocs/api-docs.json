@@ -4,6 +4,18 @@
   "basePath": "http://127.0.0.1:3000",
   "apis": [
     {
+      "path": "/apidocs/api/v1/my_users/users.{format}",
+      "description": "My User Management"
+    },
+    {
+      "path": "/apidocs/api/v1/my_users/pets.{format}",
+      "description": "My User Management"
+    },
+    {
+      "path": "/apidocs/api/v1/products.{format}",
+      "description": "Products Management"
+    },
+    {
       "path": "/apidocs/api/v1/users.{format}",
       "description": "User Management"
     }

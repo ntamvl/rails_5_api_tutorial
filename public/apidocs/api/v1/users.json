@@ -62,7 +62,7 @@
             {
               "code": 406,
               "responseModel": null,
-              "message": "Not Acceptable"
+              "message": "The request you made is not acceptable"
             },
             {
               "code": 422,
@@ -164,7 +164,7 @@
             {
               "code": 406,
               "responseModel": null,
-              "message": "Not Acceptable"
+              "message": "The request you made is not acceptable"
             },
             {
               "code": 422,
